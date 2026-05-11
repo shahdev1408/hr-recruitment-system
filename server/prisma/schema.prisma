@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("HR_MANAGER")
+  createdAt DateTime @default(now())
+  jobs      Job[]
+}
+
+model Job {
+  id            Int         @id @default(autoincrement())
+  title         String
+  department    String
+  location      String
+  vacancies     Int
+  experience    String
+  salaryRange   String
+  hiringType    String
+  stream        String
+  level         String
+  qualification String
+  qualities     String?
+  designation   String?
+  status        String      @default("OPEN")
+  recruiter     String?
+  channels      String?
+  projectCode   String?
+  priority      String?     @default("Moderate")
+  periodOfPost  String?
+  createdById   Int
+  createdBy     User        @relation(fields: [createdById], references: [id])
+  createdAt     DateTime    @default(now())
+  candidates    Candidate[]
+}
+
+model Candidate {
+  id              Int         @id @default(autoincrement())
+  name            String
+  phone           String
+  email           String?
+  education       String
+  passingYear     String?
+  totalExperience String?
+  currentCTC      String?
+  expectedCTC     String?
+  noticePeriod    String?
+  currentLocation String?
+  designation     String?
+  remarks         String?
+  resume          String?
+  status          String      @default("CALLING")
+  callingAnswers  String?
+  screeningNotes  String?
+  offerDate       String?
+  joiningDate     String?
+  jobId           Int
+  job             Job         @relation(fields: [jobId], references: [id])
+  createdAt       DateTime    @default(now())
+  interviews      Interview[]
+}
+
+model Interview {
+  id          Int       @id @default(autoincrement())
+  candidateId Int
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  type        String
+  interviewer String
+  date        DateTime
+  mode        String
+  remarks     String?
+  status      String    @default("SCHEDULED")
+  createdAt   DateTime  @default(now())
+}
