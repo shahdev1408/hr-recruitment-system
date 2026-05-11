@@ -8,7 +8,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
   return (
     <div className="min-h-screen bg-gray-50">
 
-      {/* Overlay — mobile only, shown when sidebar is open */}
+      {/* Overlay — mobile only */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
@@ -16,9 +16,9 @@ export default function DashboardShell({ children }: { children: React.ReactNode
         />
       )}
 
-      {/* Sidebar — always fixed, slides in on mobile, always visible on desktop */}
+      {/* Sidebar — fixed, full height, slides in on mobile */}
       <div className={`
-        fixed inset-y-0 left-0 z-30
+        fixed inset-y-0 left-0 z-30 h-full
         transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
@@ -26,7 +26,7 @@ export default function DashboardShell({ children }: { children: React.ReactNode
         <Sidebar onClose={() => setSidebarOpen(false)} />
       </div>
 
-      {/* Content area — pushed right by sidebar width on desktop only */}
+      {/* Content — pushed right on desktop by sidebar width */}
       <div className="lg:pl-64 flex flex-col min-h-screen">
 
         {/* Mobile top bar */}

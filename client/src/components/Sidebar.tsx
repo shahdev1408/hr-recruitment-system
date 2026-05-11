@@ -29,7 +29,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
   };
 
   return (
-    <div className="w-64 min-h-screen bg-gray-900 text-white flex flex-col">
+    <div className="w-64 h-full bg-gray-900 text-white flex flex-col">
       <div className="p-6 border-b border-gray-700 flex justify-between items-center">
         <div>
           <h1 className="text-xl font-bold text-blue-400">MMIPL HR</h1>
